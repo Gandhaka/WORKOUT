@@ -1,13 +1,14 @@
 "use client"
 
-import { useContext,useState } from "react.js"
+import { useContext,useState } from "react"
 import AuthContext from "../context/AuthContext.js"
+import axios from "axios";
 
 const Login = ()=>{
     const {login} = useContext(AuthContext)
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
-  const [registerUsername, setRegisterUsername] = useState('');
+    const [registerUsername, setRegisterUsername] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
 
     const handleSubmit = (e) => {
@@ -19,7 +20,7 @@ const Login = ()=>{
       e.preventDefault();
       try {
         const response = await axios.post('http://localhost:8000/auth', {
-          username: registerUsername,
+          username: registerUsername, 
           password: registerPassword,
         });
         login(registerUsername, registerPassword);

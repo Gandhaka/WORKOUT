@@ -2,10 +2,11 @@
 
 import { useContext,useEffect } from "react"
 import { useRouter } from "next/navigation"
-import AuthContext from "../context/AuthContext"
-import { Children } from "react/cjs/react.production"
+import AuthContext from "../context/AuthContext.js"
 
-const ProtectedRoute = ({Children})=>{
+
+
+const ProtectedRoute = ({children})=>{
     const {user} = useContext(AuthContext);
     const router = useRouter()
 
@@ -17,7 +18,7 @@ const ProtectedRoute = ({Children})=>{
 
     },[user,router]);
 
-    return user ? Children :null;
+    return user ? children :null;
 }
 
 export default  ProtectedRoute;
