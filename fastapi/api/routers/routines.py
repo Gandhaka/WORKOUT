@@ -28,15 +28,20 @@ def create_routine(db:db_dependency,user:user_dependency,routine:RoutineCreate):
         workout = db.query(Workout).filter(Workout.id == workout_id).first()
         if workout:
             db_routine.workouts.append(workout)
+        
+        db_routine = db.query(Routines).options(joinedload(Routines.workouts)).filter(Routines.id == db_routine.id).first()
+    try: 
         db.add(db_routine)
         db.commit()
-        db.refresh(db_routine)
-        db_routine = db.query(Routines).options(joinedload(Routines.workouts)).filter(Routines.id == db_routine.id).first()
-    return db_routine
+        db.refresh(db_routine)    
+        return db_routine
+    except Exception as e: 
+        db.rollback()
+        raise e
 @router.delete('/')
 def delete_routine(db:db_dependency,user:user_dependency,routine_id:int):
     db_routine = db.query(Routines).filter(Routines.id == routine_id).first()
     if db_routine:
         db.delete(db_routine)
         db.commit()
-    return  db_routine
+    return db_routine

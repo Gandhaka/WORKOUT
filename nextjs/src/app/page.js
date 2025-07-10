@@ -49,7 +49,7 @@ const Home = ()=>{
           })
         ]);
 
-        setWorkouts(workoutsResponse,data);
+        setWorkouts(workoutsResponse.data);
         setRoutines(routineResponse.data);
       } catch (error) {
         console.error('Failed to fetch data:', error);
@@ -62,7 +62,7 @@ const Home = ()=>{
       setWorkouts([])
       setRoutines([])
       setLoadingContent(false)
-    }
+    } 
   }
 
     fetchWorkoutsAndRoutines();
