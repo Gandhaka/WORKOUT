@@ -32,6 +32,7 @@ async def get_current_user(token :oauth2_bearer_dependency):
     try:
         payload = jwt.decode(token,SECRET_KEY, algorithms = [ALGORITHM])
         print(f"DEBUG: get_current_user decoded payload: {payload}")
+        #check response from frontend
         username:str = payload.get('sub')
         user_id:int = payload.get('id')
         print(f"DEBUG: username={username}, user_id={user_id}")
